@@ -80,6 +80,16 @@
   /* ===== STAGE / PREGUNTA ===== */
   .stage{flex:1 1 auto;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
   .stage::-webkit-scrollbar{display:none}
+
+  .scrollcue{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);
+    width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    background:rgba(0,0,0,.55);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);
+    border:1px solid rgba(255,255,255,.2);opacity:0;pointer-events:none;
+    transition:opacity .3s ease;z-index:9}
+  .scrollcue svg{width:16px;height:16px}
+  .scrollcue.show{opacity:1;animation:cueBounce 1.4s ease-in-out infinite}
+  @keyframes cueBounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(4px)}}
+  @media (prefers-reduced-motion: reduce){.scrollcue.show{animation:none}}
   .q{min-height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:12px 0;gap:0}
   .q.enter>*{animation:rise .55s cubic-bezier(.2,.7,.2,1) both}
   .q.leaving{animation:fall .2s ease forwards}
@@ -175,6 +185,14 @@
   .done p{font-size:15px;line-height:1.6;color:#bcbcbc;max-width:330px;font-weight:300}
   .done p b{color:#fff;font-weight:500}
   .done .mini{margin-top:32px;font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  .done-home{display:inline-flex;align-items:center;justify-content:center;margin-top:28px;text-decoration:none;
+    border:1px solid var(--line);color:#fff;background:rgba(255,255,255,.04);border-radius:13px;
+    padding:13px 26px;font-family:var(--font);font-size:14.5px;font-weight:500;letter-spacing:.01em;
+    opacity:0;transform:translateY(8px);transition:transform .14s ease, background .2s, border-color .2s}
+  .done.show .done-home{animation:homeIn .5s ease forwards;animation-delay:.55s}
+  @keyframes homeIn{to{opacity:1;transform:translateY(0)}}
+  .done-home:active{transform:scale(.97)}
+  @media(hover:hover){.done-home:hover{border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.09)}}
 
   .sending{position:absolute;inset:0;background:rgba(0,0,0,.65);display:none;align-items:center;justify-content:center;z-index:25}
   .sending.show{display:flex}
@@ -203,6 +221,9 @@
       </div>
     </div>
     <div class="stage" id="stage"></div>
+    <div class="scrollcue" id="scrollcue" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
   </div>
 
   <div class="sending" id="sending"><div class="spin"></div></div>
@@ -211,6 +232,7 @@
     <div class="seal"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
     <h2 id="doneTitle">Postulación recibida</h2>
     <p id="doneText"></p>
+    <a class="done-home" href="index.html">Volver al inicio</a>
     <div class="mini">NQ PROJECT · @soyhomie</div>
   </div>
 </div>
@@ -337,7 +359,16 @@ const stage = document.getElementById('stage');
 const fill = document.getElementById('fill');
 const count = document.getElementById('count');
 const backBtn = document.getElementById('back');
+const scrollcue = document.getElementById('scrollcue');
 const TOTAL = QUESTIONS.length;
+
+function updateScrollCue(){
+  if(!scrollcue) return;
+  const more = stage.scrollHeight - stage.scrollTop - stage.clientHeight;
+  scrollcue.classList.toggle('show', more > 12);
+}
+stage.addEventListener('scroll', updateScrollCue, {passive:true});
+window.addEventListener('resize', ()=> setTimeout(updateScrollCue, 100));
 
 const CK = `<svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#000" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 const ARROW = `<svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
@@ -401,6 +432,9 @@ function render(){
   stage.innerHTML = '';
   stage.appendChild(wrap);
   stage.scrollTop = 0;
+  scrollcue && scrollcue.classList.remove('show');
+  setTimeout(updateScrollCue, 120);
+  setTimeout(updateScrollCue, 650);
 
   let d = 0;
   for(const k of wrap.children){ k.style.animationDelay = d+'ms'; d += 70; }
