@@ -23,6 +23,9 @@
   .wrap{position:relative;z-index:1;padding:4px 22px calc(40px + env(safe-area-inset-bottom))}
   .lead{text-align:center;font-size:14.5px;line-height:1.55;color:#c7c7c7;font-weight:300;margin:14px 6px 26px}
   .lead b{color:#fff;font-weight:600}
+  .scroll-arrow{display:flex;justify-content:center;margin:14px 0 20px;color:rgba(255,255,255,.55);animation:bob 1.6s ease-in-out infinite}
+  .scroll-arrow svg{width:30px;height:30px}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
   .guide-intro{text-align:center;margin:2px 0 24px}
   .guide-intro .gi-kicker{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--apex);margin-bottom:9px}
   .guide-intro .gi-title{font-size:clamp(21px,5.6vw,27px);font-weight:800;letter-spacing:-.02em;line-height:1.15}
@@ -95,7 +98,7 @@
   </div>
 
   <div class="wrap">
-    <p class="lead">Creé este indicador para operar el <b>CPI</b> y pasar <b>cuentas de fondeo</b>. Aquí tienes todo, de principio a fin.</p>
+    <div class="scroll-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div>
     <div class="guide-intro">
       <span class="gi-kicker">Guía rápida</span>
       <h2 class="gi-title">Sigue estos 3 pasos en orden</h2>
