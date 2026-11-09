@@ -117,11 +117,6 @@
         <span class="body"><span class="t">Mentoría 1 a 1</span><span class="s">Postulación requerida</span></span>
       </a>
 
-      <a class="opt" id="b-cpi">
-        <span class="ar"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12h15M13 5l7 7-7 7" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        <span class="body"><span class="t">Indicador CPI <span class="free">14 oct</span></span><span class="s">Operamos el CPI en vivo · Obtén el indicador</span></span>
-      </a>
-
       <a class="opt" id="b-comunidad">
         <span class="ar"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12h15M13 5l7 7-7 7" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         <span class="body"><span class="t">Comunidad gratis</span><span class="s">Curso gratis · Trading en vivo</span></span>
@@ -153,7 +148,6 @@
    ============================================================ */
 const LINKS = {
   mentoria:  "Mentoria.html",
-  cpi:       "landing-cpi.html",
   comunidad: "https://chat.whatsapp.com/GWaMz51Tou59ePBaPV6dE7",
   youtube:   "https://www.youtube.com/@SoyHomie.oficial",
   apex:      "https://apextraderfunding.com/member/aff/go/alexvar",
@@ -168,7 +162,7 @@ Object.entries(LINKS).forEach(([k,v])=>{
     el.addEventListener('click', e=>e.preventDefault());
   } else {
     el.setAttribute('href', v);
-    if(k!=='mentoria' && k!=='cpi'){ el.setAttribute('target','_blank'); el.setAttribute('rel','noopener'); }
+    if(k!=='mentoria'){ el.setAttribute('target','_blank'); el.setAttribute('rel','noopener'); }
   }
 });
 
