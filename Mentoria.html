@@ -394,6 +394,7 @@
   .yt-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:66px;height:66px;border-radius:50%;background:rgba(var(--accRGB),.96);display:flex;align-items:center;justify-content:center;box-shadow:0 0 36px rgba(var(--accRGB),.55);transition:transform .2s ease;pointer-events:none}
   .yt-facade:hover .yt-play{transform:translate(-50%,-50%) scale(1.08)}
   .yt-play svg{width:27px;height:27px;margin-left:4px;fill:#0a0a0a}
+  .cd-sub{margin-top:24px;margin-bottom:2px}
 </style>
 </head>
 <body>
@@ -410,7 +411,6 @@
         <span class="lock-text">Inscripciones cerradas</span>
       </div>
       <h1 class="hdl rv in d1">Las inscripciones<br>están <em>cerradas</em></h1>
-      <p class="hero-sub rv in d2">Abro inscripciones el <b>4 de diciembre</b>. Únete a la <b>lista de espera</b> y sé de los primeros en entrar.</p>
       <svg class="scroll-cue" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
     </div>
   </div>
@@ -424,6 +424,7 @@
       <div class="cell"><div class="n" id="mm">00</div><div class="l">Min</div></div>
       <div class="cell"><div class="n" id="ss">00</div><div class="l">Seg</div></div>
     </div>
+    <p class="hero-sub cd-sub rv d3">Abro inscripciones el <b>4 de diciembre</b>. Únete a la <b>lista de espera</b> y sé de los primeros en entrar.</p>
   </section>
 
   <section>
@@ -458,7 +459,7 @@
     <p class="cta-mini rv d2">Toma 1 minuto · Llenas tu postulación y entras al grupo</p>
   </section>
 
-  <div class="foot">NQ PROJECT · @soyhomie<br>Prototipo de concepto — colores y textos ajustables.</div>
+  <div class="foot">NQ PROJECT · @soyhomie</div>
   <div class="sticky-cta" id="stickyCta"><button class="scta" type="button" id="sctaBtn">Unirme a la lista de espera<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></button></div>
 </main>
 
@@ -469,7 +470,7 @@
     function go(){var d=t-Date.now();if(d<0)d=0;var s=Math.floor(d/1000);
       document.getElementById('dd').textContent=p(Math.floor(s/86400));document.getElementById('hh').textContent=p(Math.floor(s%86400/3600));
       document.getElementById('mm').textContent=p(Math.floor(s%3600/60));document.getElementById('ss').textContent=p(s%60);setTimeout(go,1000);}go();})();
-  document.getElementById('cta').onclick=function(){alert('Aquí abriría tu formulario de postulación.');};
+  /* el botón inicia el formulario vía el host (postMessage) */
   (function(){var cv=document.getElementById('hphx');if(!cv)return;if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)return;var ctx=cv.getContext('2d'),w=0,h=0,dpr=1,ps=[];function size(){dpr=Math.min(window.devicePixelRatio||1,2);var r=cv.getBoundingClientRect();w=r.width;h=r.height;cv.width=w*dpr;cv.height=h*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);}function init(){var n=Math.max(30,Math.min(72,Math.round(w*h/6000)));ps=Array.from({length:n},function(){return{x:Math.random()*w,y:Math.random()*h,r:Math.random()*1.7+.5,vy:-(Math.random()*.2+.05),vx:(Math.random()-.5)*.12,a:Math.random()*.5+.18,tw:Math.random()*6.28};});}function tick(){ctx.clearRect(0,0,w,h);ctx.shadowColor='rgba(180,255,57,.7)';ctx.shadowBlur=6;for(var i=0;i<ps.length;i++){var p=ps[i];p.y+=p.vy;p.x+=p.vx;p.tw+=.02;if(p.y<-6){p.y=h+6;p.x=Math.random()*w;}if(p.x<-6)p.x=w+6;if(p.x>w+6)p.x=-6;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,6.283);ctx.fillStyle='rgba(180,255,57,'+(p.a*(0.5+0.5*Math.sin(p.tw)))+')';ctx.fill();}requestAnimationFrame(tick);}window.addEventListener('resize',function(){size();init();});setTimeout(function(){size();init();requestAnimationFrame(tick);},60);})();
   (function(){var cv=document.getElementById('chart');if(!cv)return;var ctx=cv.getContext('2d'),w=0,h=0,dpr=1,reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
   var ps=[];function rnd(a,b){return a+Math.random()*(b-a);}
